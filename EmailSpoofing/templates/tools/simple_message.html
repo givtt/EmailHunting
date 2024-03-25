@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Send Simple Message</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simplebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/feather.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uppy.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.steps.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.timepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-light.css') }}" id="lightTheme">
+    <script src="{{ url_for('static', filename='js/givt.js') }}"></script>
+
+
+  </head>
+  <body class="vertical  light rtl ">
+    <div class="wrapper">
+      {% include "nav.html" %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="page-title">
+                <i class="fe fe-message-square"></i>
+                &nbsp;
+                أرسال رسائل مزعجة
+              </h2>
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <p class="mb-3"><strong>ارسال رسائل</strong></p>
+
+                      <div id="show_alert"></div>
+
+                      <div class="form-group mb-3">
+                          <label for="example-select">البريد الخاص بك [ المرسل ]</label>
+                          <select disabled class="form-control" id="example-select">
+                              <option>{{ email }}</option>
+                          </select>
+                      </div>
+
+                      <div class="form-group mb-3">
+                        <label for="from">من الاسم [ From Name ]</label>
+                        <input dir="ltr" id="from" type="text" class="form-control">
+                      </div>
+
+                      <div class="form-group mb-3">
+                        <label for="target_email">البريد الخاص بالضحية</label>
+                        <input dir="ltr" id="target_email" type="email" class="form-control">
+                      </div>
+
+                      <div class="form-group mb-3">
+                        <label for="subject">عنوان الرسالة [ Subject ]</label>
+                        <input dir="ltr" id="subject" type="text" class="form-control">
+                      </div>
+
+                      <div class="form-group mb-3">
+                        <label for="message">الرسالة [ Message ]</label>
+                        <textarea dir="ltr" id="message" class="form-control" rows="7"></textarea>
+                      </div>
+
+                      <div class="form-group mb-3">
+                          <label for="send_count">عدد مرات ارسال الرسالة</label>
+                          <select class="form-control" id="send_count">
+                            <option value="1">1</option>
+                            <option value="10">10</option>
+                            <option value="100">100</option>
+                            <option value="500">500</option>
+                          </select>
+                      </div>
+
+                      <div class="form-group mb-3">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="re_send" required="">
+                            <label class="custom-control-label" for="re_send">اعادة محاولة ارسال الرساله في حال الفشل ( لا يفضل تشغيلها )</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 border-top py-3">
+                          <button id="sub" onclick="send_message()" class="btn mb-2 btn-primary btn-md btn-block">ارسال الرسالة</button>
+                      </div>
+
+                      <div id="1I893u8d==" hidden="" class="row justify-content-center">
+                        <p class="text-success" id="done_send">تم الأرسال : [  ]</p>
+                        &nbsp;&nbsp;
+                        <p class="text-warning" id="left">المتبقي : [  ]</p>
+                        &nbsp;&nbsp;
+                        <p class="text-danger" id="errors"> الأخطاء : [  ]</p>
+
+                      </div>
+
+                      <script>
+                        show_alert("لا انصحك بأستخدام ذي الأداة", "info")
+                        function send_message(){
+                          close_button("sub")
+
+                          const re_send = document.getElementById("re_send").value
+                          const count = document.getElementById("send_count").value
+                          var done = 0
+                          var error = 0
+
+                          if (count === "1"){
+
+                            send_reqeust().then(responseData => {
+                                if (responseData.error) {
+                                    show_alert(responseData.message, "error");
+                                    unclose_button("sub", "ارسال الرسالة");
+                                } else {
+                                  show_alert(responseData.message, "success")
+                                  unclose_button("sub", "ارسال الرسالة");
+                                }
+                            }).catch(error => {
+                                show_alert(error, "error");
+                                unclose_button("sub", "ارسال الرسالة");
+                            });
+                          } else {
+                            document.getElementById("1I893u8d==").removeAttribute("hidden");
+                            for (let i = 0; i < count; i++) {
+                              console.log(i)
+                              document.getElementById("done_send").innerText = `تم الأرسال : [ ${done} ]`;
+                              document.getElementById("left").innerText = `المتبقي : [ ${count - done} ]`;
+                              document.getElementById("errors").innerText = ` الأخطاء : [ ${error} ]`;
+
+                              send_reqeust().then(responseData => {
+                                  if (responseData.error) {
+                                    error ++
+                                    i--
+                                  } else {
+                                    done ++
+                                  }
+                              }).catch(error => {
+                                i--
+                                error ++
+                              });
+                            }
+                            unclose_button("sub", "ارسال الرسالة");
+
+                          }
+
+
+                        }
+
+                        function send_reqeust(){
+                          const FromName = document.getElementById("from").value
+                          const TargetEmail = document.getElementById("target_email").value
+                          const Subject = document.getElementById("subject").value
+                          const Message = document.getElementById("message").value
+
+                          const data = {
+                            FromName: FromName,
+                            TargetEmail: TargetEmail,
+                            Subject: Subject,
+                            Message: Message
+                          };
+
+                          return fetch('{{url_for("main.send_simple_message")}}', {
+                              method: 'POST',
+                              headers: {
+                              'Content-Type': 'application/json'
+                              },
+                              body: JSON.stringify(data)
+                          })
+                          .then(response => {
+                              return response.json();
+                          })
+                          .catch(error => {
+                            throw error;
+                          });
+                        }
+
+                      </script>
+                    </div>
+                  </div>
+
+                </div> <!-- /.col -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/simplebar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.stickOnScroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinycolor-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/apps.js') }}"></script>
+
+  </body>
+</html>

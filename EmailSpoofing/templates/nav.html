@@ -1,0 +1,43 @@
+<nav class="topnav navbar navbar-light">
+    <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+        <i class="fe fe-menu navbar-toggler-icon"></i>
+    </button>
+</nav>
+<aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar> <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle"> <i class="fe fe-x"><span class="sr-only"></span></i> </a>
+    <nav class="vertnav navbar navbar-light">
+        <div class="w-100 mb-4 d-flex">
+            <a href="https://t.me/givtt" class="navbar-brand mx-auto mt-2 flex-fill text-center">
+                <img src="{{url_for('static', filename='image/avatar.png')}}" class="navbar-brand-img w-50" alt="">
+            </a>
+        </div>
+
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100 {% if request.path == url_for('main.home') %}active{% endif %}">
+                <a class="nav-link" href="{{url_for('main.home')}}">
+                    <i class="fe fe-home fe-16"></i>
+                    <span class="ml-3 item-text">الصفحة الرئيسية</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100 {% if request.path == url_for('setting.questions') %}active{% endif %}">
+                <a class="nav-link" href="{{url_for('setting.questions')}}">
+                    <i class="fe fe-info fe-16"></i>
+                    <span class="ml-3 item-text">اسألة متكررة</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100 {% if request.path == url_for('setting.home') %}active{% endif %}">
+                <a class="nav-link" href="{{url_for('setting.home')}}">
+                    <i class="fe fe-settings fe-16"></i>
+                    <span class="ml-3 item-text">الأعدادات</span>
+                </a>
+            </li>
+        </ul>
+
+
+    </nav>
+</aside>

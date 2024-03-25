@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Setting</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/simplebar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app-light.css')}}" id="lightTheme">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/feather.css')}}">
+    <script src="{{ url_for('static', filename='js/givt.js') }}"></script>
+  </head>
+  <body class="vertical  light rtl ">
+    <div class="wrapper">
+      {% include "nav.html" %}
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+              <h2 class="h3 mb-4 page-title">الأعدادات</h2>
+              <div id="show_alert"></div>
+              <div class="my-4">
+
+
+                  <div class="row mt-5 align-items-center">
+                    <div class="col">
+                      <div class="row align-items-center">
+                        <div class="col-md-7">
+                          <h4 class="mb-1">{{account_info["account"]["email"]}}</h4>
+                          <p class="small mb-3"><span class="badge badge-dark">البريد الخاص بك</span></p>
+                        </div>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-md-7">
+                          <p class="text-muted">
+                            كلمة المرور | {{account_info["account"]["password"]}}
+                          </p>
+                          <p class="text-muted">
+                            تسجيل دخول تلقائي | {{account_info["account"]["remember_me"]}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button onclick="logout()" class="btn btn-outline-danger">تسجيل الخروج</button>
+
+                  <script>
+                    function logout(){
+                      fetch('{{url_for("setting.home")}}', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify({ _type: "logout" })
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.error) {
+                              show_alert(data.message, "error");
+                          } else if (data.redirect) {
+                            window.location.href = data.redirect
+                          }
+                      })
+
+                    }
+                  </script>
+
+              </div> <!-- /.card-body -->
+            </div> <!-- /.col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/simplebar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.stickOnScroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinycolor-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/apps.js') }}"></script>
+  </body>
+</html>

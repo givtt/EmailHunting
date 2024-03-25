@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/simplebar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app-light.css')}}" id="lightTheme">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/feather.css')}}">
+    <script src="{{ url_for('static', filename='js/givt.js') }}"></script>
+  </head>
+  <body class="vertical  light rtl ">
+    <div class="wrapper">
+      {% include "nav.html" %}
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="row align-items-center mb-2">
+                <div class="col">
+                  <h2 class="h5 page-title">اهلا بك</h2>
+                </div>
+              </div>
+              <div class="alert alert-primary" role="alert"> <span class="fe fe-alert-circle fe-16 mr-2"></span> الرجاء عدم استخدام بريدك الأساسي </div>
+                
+              <!-- linechart -->
+              <div class="my-4">
+                <div id="lineChart"></div>
+              </div>
+
+              <div dir="" class="row items-align-baseline">
+                  <div class="col-md-12 col-lg-4">
+                      <div class="card shadow eq-card mb-4">
+                          <div class="card-body mb-n3">
+                              <div class="row items-align-baseline h-100">
+                                  <div class="col-md-6 my-3">
+                                      <p class="mb-0"><strong class="mb-0 text-uppercase text-muted">اسم الأداة</strong></p>
+                                      <h3>ارسال رسالة أنتحال</h3>
+                                      <p class="text-muted">ارسال رسالة تقوم بأنتحال الصفحات كصفحة تسجيل دخول او تنبية بتغير كلمة المرور</p>
+                                  </div>
+                                  <div class="col-md-6 my-4 text-center">
+                                      <div lass="chart-box mx-4" style="position: relative;">
+                                          <img class="avatar-img w-75" src="{{url_for('static', filename='image/email_send.png')}}" alt="">
+                                      </div>
+                                  </div>
+
+                                  <div class="col-md-12 border-top py-3">
+                                      <a href="{{url_for('main.send_fake_template')}}" class="btn mb-2 btn-primary btn-md btn-block">أستعمال</a>
+                                  </div>
+
+                                  <div class="col-md-6 border-top py-3">
+                                      <p class="mb-1"><strong class="text-muted">الصفحات التي تم انتحالها</strong></p>
+                                      <h4 class="mb-0">
+                                          <i class="fe fe-more-horizontal "> </i>
+                                          <i class="fe fe-facebook "></i>
+                                          <i class="fe fe-instagram "></i>
+                                          <i class="fe fe-twitter "></i>
+                                      </h4>
+                                  </div>
+                                  <div class="col-md-6 border-top py-3"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-4">
+                      <div class="card shadow eq-card mb-4">
+                          <div class="card-body mb-n3">
+                              <div class="row items-align-baseline h-100">
+                                  <div class="col-md-6 my-3">
+                                      <p class="mb-0"><strong class="mb-0 text-uppercase text-muted">اسم الأداة</strong></p>
+                                      <h3>ارسال رسائل مزعجة</h3>
+                                      <p class="text-muted">ارسال رسالة بسيطة او ارسال الاف الرسائل دفعة واحدة</p>
+                                  </div>
+                                  <div class="col-md-6 my-4 text-center">
+                                      <div lass="chart-box mx-4" style="position: relative;">
+                                          <img class="avatar-img w-75" src="{{url_for('static', filename='image/nuc.png')}}" alt="">
+                                      </div>
+                                  </div>
+
+                                  <div class="col-md-12 border-top py-3">
+                                      <a href="{{url_for('main.send_simple_message')}}" class="btn mb-2 btn-primary btn-md btn-block">أستعمال</a>
+                                  </div>
+
+
+                                  <div class="col-md-12 border-top py-3">
+                                      <div class="alert alert-warning" role="alert">
+                                          <span class="fe fe-alert-triangle fe-16 mr-2"></span>
+                                          تنبية : قد يتعرض حسابك للحظر
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="col-md-12 col-lg-4">
+                      <div class="card shadow eq-card mb-4">
+                          <div class="card-body mb-n3">
+                              <div class="row items-align-baseline h-100">
+                                  <div class="col-md-6 my-3">
+                                      <p class="mb-0"><strong class="mb-0 text-uppercase text-muted">اسم الأداة</strong></p>
+                                      <h3>التحقق من البريد</h3>
+                                      <p class="text-muted">امكانية فلترة واستخراج عناوين البريد الإلكتروني التي تملك inbox وصالحة للعمل ( غير وهمية )</p>
+                                  </div>
+                                  <div class="col-md-6 my-4 text-center">
+                                      <div lass="chart-box mx-4" style="position: relative;">
+                                          <img class="avatar-img w-75" src="{{url_for('static', filename='image/gmail.png')}}" alt="">
+                                      </div>
+                                  </div>
+
+                                  <div class="col-md-12 border-top py-3">
+                                      <a href="{{url_for('main.email_check')}}" class="btn mb-2 btn-primary btn-md btn-block">أستعمال</a>
+                                  </div>
+
+                                  <div class="col-md-12 border-top py-3">
+                                      <div class="alert alert-warning" role="alert">
+                                          <span class="fe fe-alert-triangle fe-16 mr-2"></span>
+                                          تنبية : تعمل فقط مع حسابات Gmail
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/simplebar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.stickOnScroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinycolor-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/apps.js') }}"></script>
+  </body>
+</html>

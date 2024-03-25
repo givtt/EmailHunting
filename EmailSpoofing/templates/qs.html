@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Questions ?</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/simplebar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app-light.css')}}" id="lightTheme">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/feather.css')}}">
+    <script src="{{ url_for('static', filename='js/givt.js') }}"></script>
+  </head>
+  <body class="vertical  light rtl ">
+    <div class="wrapper">
+      {% include "nav.html" %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-12">
+              <div class="row my-4">
+                <div class="col-md-6">
+                  <div class="accordion w-100">
+                    <div class="card shadow">
+                      <div class="card-header" >
+                        <a role="button" href="" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                          <strong>هل  يمكنني تطوير المشروع؟</strong>
+                        </a>
+                      </div>
+                      <div class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
+                        <div class="card-body">
+                          المشروع مفتوح المصدر يمكنك أضافة مزايا او اصلاح احد المشاكل او اقتراح الأفكار لنا وسيتم اضافتها
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="accordion w-100">
+                    <div class="card shadow">
+                      <div class="card-header" >
+                        <a role="button" href="" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                          <strong>هل يوجد تحديثات للمشروع؟</strong>
+                        </a>
+                      </div>
+                      <div class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
+                        <div class="card-body">
+                          سيكون هناك اصدارات قادمة بمزايا قادمة
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row my-4">
+                <div class="col-md-6">
+                  <div class="accordion w-100" id="accordion1">
+                    <div class="card shadow">
+                      <div class="card-header" id="heading1">
+                        <a role="button" href="" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                          <strong>هل من الممكن ان يتعطل حسابي ؟</strong>
+                        </a>
+                      </div>
+                      <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
+                        <div class="card-body">
+                          نعم, من الممكن ان يتم تعطيل حسابك بسبب كثرة ارسال الرسائل , او ان المستخدمين ابلغو عن الصفحات المزورة
+
+                          <div class="alert alert-info mt-4" role="alert">
+                            <span class="fe fe-smile fe-16 mr-2"></span>
+                            استخدم حساب وهمي (:
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="accordion w-100" id="accordion2">
+                    <div class="card shadow">
+                      <div class="card-header" id="heading2">
+                        <a role="button" href="" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                          <strong>هل من الممكن ان يتم الوصول الى البريد الخاص بي ؟</strong>
+                        </a>
+                      </div>
+                      <div id="collapse2" class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
+                        <div class="card-body">
+                          تقوم الأداة بتخزين البريد وكلمة المرور في الجهاز الخاص بك ! , في حال قمت بمشاركة ملفاتك او استطاع احد الأشخاص الولوج اليها فسيحصل على كلمة المرور
+                        </div>
+                        <div class="card-body">
+                           ننصحك بتسجيل الخروج عند الأنتهاء من استخدام الأداة عن طريق الإعدادات -> تسجيل الخروج , سيتم مسح كلمة المرور والبريد عند تسجيل الخروج
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div> <!-- /.col -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/simplebar.min.js"></script>
+    <script src='js/daterangepicker.js'></script>
+    <script src='js/jquery.stickOnScroll.js'></script>
+    <script src="js/tinycolor-min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/apps.js"></script>
+  </body>
+</html>

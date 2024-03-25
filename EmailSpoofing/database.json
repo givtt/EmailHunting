@@ -1,0 +1,8 @@
+{
+  "account": {
+    "email": "",
+    "password": "",
+    "smtp": "",
+    "remember_me": false
+  }
+}

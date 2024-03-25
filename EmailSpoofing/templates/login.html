@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login To Your Account</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/simplebar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app-light.css')}}" id="lightTheme">
+    <script src="{{ url_for('static', filename='js/givt.js') }}"></script>
+  </head>
+  <body class="light rtl">
+    <div class="wrapper vh-100">
+      <div class="row align-items-center h-100">
+        <form id="myForm" class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+          <div class="mx-auto text-center my-4">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+              <img class="avatar-img w-25" src="{{url_for('static', filename='image/email.png')}}" alt="">
+            </a>
+            <h2 class="my-3">تسجيل الدخول الى حسابك</h2>
+            <div dir="rtl" id="show_alert"></div>
+          </div>
+          <p class="text-muted">تحتاج الى بريد الكتروني لإرسائل الرسائل الى المستخدمين</p>
+          <a href="{{url_for('main.how_get_password')}}" class="btn btn-sm btn-primary mb-2 text-white">شرح استخراج كلمة المرور الخاصة بحسابك</a>
+          <div class="form-group">
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input dir="ltr" type="email" id="inputEmail" class="form-control form-control-lg" placeholder="Email address" required="">
+          </div>
+          <div class="form-group">
+            <label for="inputPass" class="sr-only">Your Email Password</label>
+            <input dir="ltr" type="password" id="inputPass" class="form-control form-control-lg" placeholder="Enter Your Email Password" required="">
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" id="remember_me">  حفظ الحساب ( عند تشغيل الأداة لن تحتاج الى تسجيل الدخول مرة اخرى )
+            </label>
+          </div>
+          <button type="button" id="sub" class="btn btn-lg btn-primary text-white" onclick="login()">تسجيل الدخول</button>
+          <p class="mt-5 mb-3 text-muted">© GIVT 3> </p>
+        </form>
+        <script>
+
+          function login() {
+            close_button("sub")
+            const data = {
+              email: document.getElementById("inputEmail").value,
+              password: document.getElementById("inputPass").value,
+              remember_me: document.getElementById("remember_me").checked
+            };
+            fetch('{{url_for("auth.login")}}', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                  show_alert(data.message, "error")
+                  unclose_button("sub", "تسجيل الدخول")
+                } else if (data.redirect){
+                  window.location.href = data.redirect;
+                }
+            })
+            .catch(error => {
+              show_alert(error, "error")
+              unclose_button("sub", "تسجيل الدخول")
+            });
+          }
+        </script>
+
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/simplebar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.stickOnScroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinycolor-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/apps.js') }}"></script>
+
+  </body>
+</html>
+</body>
+</html>

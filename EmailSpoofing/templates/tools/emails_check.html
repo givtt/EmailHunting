@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Emails Check</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/font.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simplebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/feather.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uppy.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.steps.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.timepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quill.snow.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-light.css') }}" id="lightTheme">
+    <script src="{{ url_for('static', filename='js/givt.js') }}"></script>
+
+
+  </head>
+  <body class="vertical  light rtl ">
+    <div class="wrapper">
+      {% include "nav.html" %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="page-title">
+                <i class="fe fe-search"></i>
+                &nbsp;
+                التحقق من حسابات البريد
+              </h2>
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <p class="mb-3"><strong>ارسال رسالة ملغمة</strong></p>
+
+                      <div id="show_alert"></div>
+
+                      <div class="form-group mb-3">
+                        <label for="emails">ادخل الإيميلات [ كل ايميل بسطر لحاله ! ]</label>
+                        <textarea dir="ltr" id="emails" class="form-control" rows="7"></textarea>
+                      </div>
+
+
+                      <div class="col-md-12 border-top py-3">
+                          <button id="sub" onclick="run()" class="btn mb-2 btn-primary btn-md btn-block">فحص</button>
+                      </div>
+
+                      <script>
+                        function run() {
+                          close_button("sub");
+
+                          const textarea = document.getElementById('emails');
+                          const lines = textarea.value.split('\n').map(line => line.trim()).filter(Boolean);
+                          document.getElementById("r").removeAttribute("hidden");
+
+                          let lineCounter = 0;
+
+                          function processNextLine() {
+                              if (lineCounter < lines.length) {
+                                  const line = lines[lineCounter];
+
+                                  fetch('{{url_for("main.email_check")}}', {
+                                      method: 'POST',
+                                      headers: {
+                                          'Content-Type': 'application/json'
+                                      },
+                                      body: JSON.stringify({ email: line })
+                                  })
+                                  .then(response => response.json())
+                                  .then(data => {
+                                      if (data.error) {
+                                          show_alert(data.message, "error");
+                                      } else if (data.exist === true) {
+                                          document.getElementById("result").value += line + "\n";
+                                      }
+                                  })
+                                  .catch(error => {
+                                      show_alert(error, "error");
+                                      unclose_button("sub", "فحص");
+                                      return 1;
+                                  })
+                                  .finally(() => {
+                                      lineCounter++;
+                                      setTimeout(processNextLine, 2000); // 2000 milliseconds = 2 seconds
+                                  });
+                              } else {
+                                  show_alert("تم فحص جميع الإيميلات", "success");
+                                  unclose_button("sub", "فحص");
+                              }
+                          }
+                          processNextLine();
+                      }
+
+                      </script>
+
+                      <div id="r" hidden="hidden" class="justify-content-center">
+                        <div class="form-group mb-3">
+                          <label for="result">الإيميلات الشغالة</label>
+                          <textarea dir="ltr" id="result" class="form-control" rows="7"></textarea>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div> <!-- /.col -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/simplebar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.stickOnScroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinycolor-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/apps.js') }}"></script>
+
+  </body>
+</html>
